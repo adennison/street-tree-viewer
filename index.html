@@ -1,43 +1,63 @@
 <html>
 	<head>
-		<title>Park Viewer</title>
+		<title>Leederville Street Trees</title>
 		<script src="leaflet/leaflet.js"></script>
 		<script src="turf/turf.js"></script>
 		<script src="makimarkers/Leaflet.MakiMarkers.js"></script>
 		<script src="geodesy/leaflet-geodesy.js"></script>
-		<script src="data/pos_parks.json"></script>
+		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+		<script src="data/trees.json"></script>
 		<link rel="stylesheet" href="leaflet/leaflet.css" />
+		<link rel="stylesheet" href="trees.css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
 	</head>
 	<body>
 		<div id="map" style="width: 100%; height: 100%"></div>
 		<script>
+		$(function() {
+			$( "#slider" ).slider({
+				value:100,
+				min: 0,
+				max: 500,
+				step: 50,
+				slide: function( event, ui ) {
+					$( "#amount" ).val( "$" + ui.value );
+				}
+			});
+			$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+		});
+
+		var mapCenter = [-31.9374, 115.84308];
+		var walkBuffer = 100;
+
 			// Create map object
-			var map = L.map('map').setView([-31.9522, 115.8589], 15);
+			var map = L.map('map', {
+				center: mapCenter,
+				zoom: 17,
+				attributionControl: false,
+				zoomControl: false
+			});
 
 			// Add base layers
 			var osm = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {id: 'examples.map-i875mjb7'}).addTo(map);
 
-			// var parks_tiles = L.tileLayer.wms("http://ns2.gaiaresources.com.au:8080/geoserver/UWA-POS/wms", {
-			// 	layers: 'UWA-POS:pos_pos',
-			// 	format: 'image/png',
-			// 	transparent: true,
-			// }).addTo(map);
-
-			// Create park icon
-			var parkIcon = L.MakiMarkers.icon({
+			// Create tree icon
+			var treeIcon = L.MakiMarkers.icon({
 				icon: "park2",
 				color: "#39E347",
 				size: "m"
 			});
 
-			// Create nearest park icon
+			// Create nearest tree icon
 			var nearestIcon = L.MakiMarkers.icon({
 				icon: "park2",
 				color: "#13851C",
 				size: "m"
 			});
 
-			// Create background park icon
+			// Create background tree icon
 			var backgroundIcon = L.MakiMarkers.icon({
 				icon: "park2",
 				color: "#CCCCCC",
@@ -51,33 +71,33 @@
 				size: "m"
 			});
 
-			var parks_all = L.geoJson(pos_parks, {
+			var trees_all = L.geoJson(st_trees, {
 				onEachFeature: onEachFeature,
 				pointToLayer: function (feature, latlng) {
 					return L.marker(latlng, {icon: backgroundIcon});
 				}
 			}).addTo(map);
 
-			// Add park layer
-			var parks = L.geoJson(pos_parks, {
+			// Add tree layer
+			var trees = L.geoJson(st_trees, {
 				onEachFeature: onEachFeature,
 				pointToLayer: function (feature, latlng) {
-					return L.marker(latlng, {icon: parkIcon});
+					return L.marker(latlng, {icon: treeIcon});
 				}
 			}).addTo(map);
 
-			// Empty nearest park layer
+			// Empty nearest tree layer
 			var nearestMarker = L.marker();
 			nearestMarker.setIcon(nearestIcon);
 
 			// Add person layer
-			var person = L.marker([-31.9522, 115.8589], {
+			var person = L.marker(mapCenter, {
 				icon: personIcon,
 				draggable: true
 			}).addTo(map);
 
 			// Create a point buffer polygon
-			var personBuffer = LGeo.circle([-31.9522, 115.8589], 500, {
+			var personBuffer = LGeo.circle(mapCenter, walkBuffer, {
 				stroke: false,
 				fillColor: "#514e4e"
 			});
@@ -85,48 +105,85 @@
 			// Add personBuffer to a feature group
 			var buffer = L.featureGroup().addLayer(personBuffer).addTo(map)
 
-			// Update viewable parks
-			updateParks()
+			// Update viewable trees
+			updateTrees()
 
-			// On drag get the new marker position and update the viewable parks
+			// On drag get the new marker position and update the viewable trees
 			person.on('drag', function (e) {
 				var position = person.getLatLng();
 
 				buffer.clearLayers();
-				personBuffer = LGeo.circle([position.lat, position.lng], 500, {
+				personBuffer = LGeo.circle([position.lat, position.lng], walkBuffer, {
 					stroke: false,
 					fillColor: "#514e4e"
 				})
 				buffer.addLayer(personBuffer);
 
-				updateParks()
+				updateTrees()
 			});
 
-			parks.on('mouseover', function (e) {
+			trees.on('mouseover', function (e) {
 				e.layer.openPopup();
 			});
 
-			parks.on('mouseout', function (e) {
+			trees.on('mouseout', function (e) {
 				e.layer.closePopup();
 			});
 
-			// Update parks layer with parks inside the current buffer
-			function updateParks() {
-				parks_fc = parks_all.toGeoJSON();
+			trees_all.on('mouseover', function (e) {
+				e.layer.openPopup();
+			});
+
+			trees_all.on('mouseout', function (e) {
+				e.layer.closePopup();
+			});
+
+			nearestMarker.on('mouseover', function (e) {
+				e.target.openPopup();
+			});
+
+			nearestMarker.on('mouseout', function (e) {
+				e.target.closePopup();
+			});
+
+			// Create custom slider
+			sliderControl = function(theSliderControlFunction) {
+				var slideControl = new (L.Control.extend({
+					options: { position: 'topleft' },
+					onAdd: function (map) {
+						sliderDiv = L.DomUtil.create('div', 'slider');
+						sliderDiv.id = 'slider';
+
+						return sliderDiv;
+					}
+				}));
+
+				return slideControl;
+			};
+
+			// Add slider control
+			map.addControl(sliderControl());
+
+			// Update trees layer with trees inside the current buffer
+			function updateTrees() {
+				trees_fc = trees_all.toGeoJSON();
 				buffer_fc = turf.featurecollection([personBuffer.toGeoJSON()]);
-				within = turf.within(parks_fc, buffer_fc);
-				parks.clearLayers();
-				parks.addData(within);
+				within = turf.within(trees_fc, buffer_fc);
+				trees.clearLayers();
+				trees.addData(within);
 
 				map.removeLayer(nearestMarker);
-				nearest = turf.nearest(person.toGeoJSON(),parks_fc);
-				nearestMarker.setLatLng([nearest.geometry.coordinates[1],nearest.geometry.coordinates[0]]).addTo(map); 
+				nearest = turf.nearest(person.toGeoJSON(),trees_fc);
+				nearestMarker.setLatLng([nearest.geometry.coordinates[1],nearest.geometry.coordinates[0]]).addTo(map);
+
+				var popup = L.popup({closeButton: false}).setContent('<i>' + nearest.properties.species_nm + '</i>');
+				nearestMarker.bindPopup(popup);
 			}
 
-			// Add popups to park layer
+			// Add popups to tree layer
 			function onEachFeature(feature, layer) {
-				if (feature.properties.park_name) {
-					var popup = L.popup({closeButton: false}).setContent(feature.properties.park_name);
+				if (feature.properties.species_nm) {
+					var popup = L.popup({closeButton: false}).setContent('<i>' + feature.properties.species_nm + '</i>');
 					layer.bindPopup(popup);
 				};
 			}
