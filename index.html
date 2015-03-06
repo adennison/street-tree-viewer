@@ -18,6 +18,7 @@
 		<script>
 		$(function() {
 			$( "#slider" ).slider({
+				orientation: "vertical",
 				value:100,
 				min: 0,
 				max: 500,
@@ -27,6 +28,10 @@
 				}
 			});
 			$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
+		});
+
+		$( "#slider" ).on( "slide", function( event, ui ) {
+			console.log('slide');
 		});
 
 		var mapCenter = [-31.9374, 115.84308];
