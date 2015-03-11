@@ -1,17 +1,21 @@
 <html>
 	<head>
-		<title>Test</title>
+		<title>Leederville Street Trees</title>
 		<script src="leaflet/leaflet.js"></script>
 		<script src="turf/turf.js"></script>
 		<script src="makimarkers/Leaflet.MakiMarkers.js"></script>
 		<script src="geodesy/leaflet-geodesy.js"></script>
-		<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="http://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+		<!-- <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script> -->
+		<script src="jquery/jquery-1.10.2.min.js"></script>
+		<script src="jquery/jquery-ui.min.js"></script>
+		<script src="slider-pips/jquery-ui-slider-pips.js"></script>
 		<script src="data/trees.json"></script>
 		<link rel="stylesheet" href="leaflet/leaflet.css" />
 		<link rel="stylesheet" href="trees.css" />
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-		<link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+		<!-- <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css"> -->
+		<link rel="stylesheet" href="jquery/jquery-ui.css">
+		<link rel="stylesheet" href="slider-pips/jquery-ui-slider-pips.css">
 	</head>
 	<body>
 		<div id="map" style="width: 100%; height: 100%"></div>
@@ -34,6 +38,8 @@
 					stop: function () {
 						map.dragging.enable();
 					},
+				}).slider("pips", {
+					suffix: "m"
 				});
 			});
 
@@ -127,11 +133,9 @@
 					options: { position: 'topright' },
 					onAdd: function (map) {
 						controlDiv = L.DomUtil.create('div', 'sidebar-control');
-
 						return controlDiv;
 					}
 				}));
-
 				return controlSidebar;
 			};
 
@@ -145,11 +149,9 @@
 					onAdd: function (map) {
 						sliderDiv = L.DomUtil.create('div', 'slider');
 						sliderDiv.id = 'slider';
-
 						return sliderDiv;
 					}
 				}));
-
 				return slideControl;
 			};
 
