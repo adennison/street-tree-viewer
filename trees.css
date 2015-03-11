@@ -14,3 +14,10 @@
 	background-color: #FFFFFF;
 	font-family: helvetica;
 }
+                  
+#slider .ui-slider-handle {
+  border-radius: 20px;
+  height: 15px;
+  width: 15px;
+  margin-left: 1px;
+}
