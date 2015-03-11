@@ -1,5 +1,5 @@
 .leaflet-container {
-    background-color: #73B5E5;
+	background-color: #73B5E5;
 }
 
 .sidebar-control {
@@ -14,10 +14,15 @@
 	background-color: #FFFFFF;
 	font-family: helvetica;
 }
-                  
+
 #slider .ui-slider-handle {
-  border-radius: 20px;
-  height: 15px;
-  width: 15px;
-  margin-left: 1px;
+	border-radius: 20px;
+	height: 15px;
+	width: 15px;
+	margin-left: 1px;
+	background-color: #828D95;
+}
+
+.ui-slider-vertical.ui-slider-pips {
+	background-color: #D3DAED;
 }
