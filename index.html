@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Leederville Street Trees</title>
+		<title>Test</title>
 		<script src="leaflet/leaflet.js"></script>
 		<script src="turf/turf.js"></script>
 		<script src="makimarkers/Leaflet.MakiMarkers.js"></script>
@@ -16,38 +16,38 @@
 	<body>
 		<div id="map" style="width: 100%; height: 100%"></div>
 		<script>
-		$(function() {
-			$( "#slider" ).slider({
-				orientation: "vertical",
-				value:100,
-				min: 0,
-				max: 500,
-				step: 50,
-				slide: function( event, ui ) {
-					$( "#amount" ).val( "$" + ui.value );
-				}
+			$(function() {
+				$( "#slider" ).slider({
+					orientation: "vertical",
+					value: walkBuffer,
+					min: 50,
+					max: 200,
+					step: 50,
+					slide: function( event, ui ) {
+						resizeBuffer(buffer,person.getLatLng().lat,person.getLatLng().lng,ui.value)
+						updateTreeMarkers();
+					},
+					start: function () {
+						map.dragging.disable();
+					},
+					stop: function () {
+						map.dragging.enable();
+					},
+				});
 			});
-			$( "#amount" ).val( "$" + $( "#slider" ).slider( "value" ) );
-		});
 
-		$( "#slider" ).on( "slide", function( event, ui ) {
-			console.log('slide');
-		});
-
-		var mapCenter = [-31.9374, 115.84308];
-		var walkBuffer = 100;
+			// ***** Map Object *****
+			var mapCenter = [-31.9374, 115.84308];
+			var walkBuffer = 100;
 
 			// Create map object
 			var map = L.map('map', {
 				center: mapCenter,
-				zoom: 17,
-				attributionControl: false,
-				zoomControl: false
+				zoom: 18,
+				attributionControl: false
 			});
 
-			// Add base layers
-			var osm = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {id: 'examples.map-i875mjb7'}).addTo(map);
-
+			// ***** Icons *****
 			// Create tree icon
 			var treeIcon = L.MakiMarkers.icon({
 				icon: "park2",
@@ -76,12 +76,26 @@
 				size: "m"
 			});
 
-			var trees_all = L.geoJson(st_trees, {
-				onEachFeature: onEachFeature,
-				pointToLayer: function (feature, latlng) {
-					return L.marker(latlng, {icon: backgroundIcon});
-				}
+			// ***** Layers *****
+			// Add base layer
+			var osm = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {id: 'examples.map-i875mjb7'}).addTo(map);
+
+			// Add person layer
+			var person = L.marker(mapCenter, {
+				icon: personIcon,
+				draggable: true
 			}).addTo(map);
+
+			person.setZIndexOffset(1000);
+
+			// Create a point buffer polygon
+			var personBuffer = LGeo.circle(mapCenter, walkBuffer, {
+				stroke: false,
+				fillColor: "#514e4e"
+			});
+
+			// Add personBuffer to a feature group
+			var buffer = L.featureGroup().addLayer(personBuffer).addTo(map);
 
 			// Add tree layer
 			var trees = L.geoJson(st_trees, {
@@ -91,56 +105,42 @@
 				}
 			}).addTo(map);
 
-			// Empty nearest tree layer
-			var nearestMarker = L.marker();
-			nearestMarker.setIcon(nearestIcon);
+			updateTreeMarkers();
 
-			// Add person layer
-			var person = L.marker(mapCenter, {
-				icon: personIcon,
-				draggable: true
-			}).addTo(map);
-
-			// Create a point buffer polygon
-			var personBuffer = LGeo.circle(mapCenter, walkBuffer, {
-				stroke: false,
-				fillColor: "#514e4e"
-			});
-
-			// Add personBuffer to a feature group
-			var buffer = L.featureGroup().addLayer(personBuffer).addTo(map)
-
-			// Update viewable trees
-			updateTrees()
-
+			// ***** Events *****
 			// On drag get the new marker position and update the viewable trees
 			person.on('drag', function (e) {
 				resizeBuffer(buffer, person.getLatLng().lat, person.getLatLng().lng, walkBuffer);
-				updateTrees()
+				updateTreeMarkers();
 			});
 
 			trees.on({
 				mouseover: openTreePopup,
-				mouseOut: closeTreePopup
+				mouseout: closeTreePopup
 			});
 
-			trees_all.on({
-				mouseover: openTreePopup,
-				mouseOut: closeTreePopup
-			});
+			// ***** Controls *****
+			// Create custom side-pane
+			sidebarControl = function(theSidebarControlFunction) {
+				var controlSidebar = new (L.Control.extend({
+					options: { position: 'topright' },
+					onAdd: function (map) {
+						controlDiv = L.DomUtil.create('div', 'sidebar-control');
 
-			nearestMarker.on('mouseover', function (e) {
-				e.target.openPopup();
-			});
+						return controlDiv;
+					}
+				}));
 
-			nearestMarker.on('mouseout', function (e) {
-				e.target.closePopup();
-			});
+				return controlSidebar;
+			};
+
+			// Add side-pane control
+			map.addControl(sidebarControl());
 
 			// Create custom slider
 			sliderControl = function(theSliderControlFunction) {
 				var slideControl = new (L.Control.extend({
-					options: { position: 'topleft' },
+					options: { position: 'bottomleft' },
 					onAdd: function (map) {
 						sliderDiv = L.DomUtil.create('div', 'slider');
 						sliderDiv.id = 'slider';
@@ -155,6 +155,7 @@
 			// Add slider control
 			map.addControl(sliderControl());
 
+			// ***** Functions *****
 			function resizeBuffer(buffer,lat,lng,bufferSize) {
 				buffer.clearLayers();
 				personBuffer = LGeo.circle([lat,lng], bufferSize, {
@@ -164,20 +165,28 @@
 				buffer.addLayer(personBuffer);
 			};
 
-			// Update trees layer with trees inside the current buffer
-			function updateTrees() {
-				trees_fc = trees_all.toGeoJSON();
-				buffer_fc = turf.featurecollection([personBuffer.toGeoJSON()]);
-				within = turf.within(trees_fc, buffer_fc);
-				trees.clearLayers();
-				trees.addData(within);
+			function updateTreeMarkers() {
+				person.setZIndexOffset(1000);
 
-				map.removeLayer(nearestMarker);
-				nearest = turf.nearest(person.toGeoJSON(),trees_fc);
-				nearestMarker.setLatLng([nearest.geometry.coordinates[1],nearest.geometry.coordinates[0]]).addTo(map);
+				for (layer in trees._layers) {
+					trees_fc = trees.toGeoJSON();
+					layer_fc = turf.featurecollection([trees.getLayer(layer).toGeoJSON()]);
+					buffer_fc = turf.featurecollection([personBuffer.toGeoJSON()]);
+					within = turf.within(layer_fc, buffer_fc);
+					nearest = turf.nearest(person.toGeoJSON(),trees_fc);
+					treeCoords = trees.getLayer(layer).toGeoJSON().geometry.coordinates;
+					nearestCoords = nearest.geometry.coordinates;
 
-				var popup = L.popup({closeButton: false}).setContent('<i>' + nearest.properties.species_nm + '</i>');
-				nearestMarker.bindPopup(popup);
+					if (treeCoords[0] == nearestCoords[0] & treeCoords[1] == nearestCoords[1]) {
+						trees.getLayer(layer).setIcon(nearestIcon)
+					}
+					else if (within.features.length == 1) {
+						trees.getLayer(layer).setIcon(treeIcon)
+					}
+					else {
+						trees.getLayer(layer).setIcon(backgroundIcon)
+					};
+				};
 			}
 
 			// Add popups to tree layer
@@ -186,21 +195,25 @@
 					var popup = L.popup({closeButton: false}).setContent('<i>' + feature.properties.species_nm + '</i>');
 					layer.bindPopup(popup);
 				};
-
-				// layer.on({
-				// 	mouseover: openTreePopup,
-				// 	mouseOut: closeTreePopup
-				// });
-			}
+			};
 
 			function openTreePopup(e) {
 				e.layer.openPopup();
+
+				controlDiv.innerHTML = '<b>' + e.layer.feature.properties.species_nm + '</b>' + '</br>' + '</br>' +
+					'<b>' + 'Date: ' + '</b>'+ e.layer.feature.properties.date + '</br>' +
+					'<b>' + 'Site Type: ' + '</b>' + e.layer.feature.properties.site_type + '</br>' +
+					'<b>' + 'Health: ' + '</b>' + e.layer.feature.properties.health + '</br>' +
+					'<b>' + 'Height: ' + '</b>' + e.layer.feature.properties.height + '</br>' +
+					'<b>' + 'Crown Diameter: ' + '</b>' + e.layer.feature.properties.crown_diam + 'm' + '</br>' +
+					'<b>' + 'Leaf Cover: ' + '</b>' + e.layer.feature.properties.leaf_cover + '</br>' +
+					'<b>' + 'Tree Size: ' + '</b>' + e.layer.feature.properties.tree_size + '</br>';
 			};
 
 			function closeTreePopup(e) {
 				e.layer.closePopup();
+				controlDiv.innerHTML = '';
 			};
 		</script>
 	</body>
 </html>
-
