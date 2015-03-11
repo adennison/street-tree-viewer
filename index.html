@@ -126,10 +126,11 @@
 			// ***** Controls *****
 			// Create custom side-pane
 			sidebarControl = function(theSidebarControlFunction) {
-				var controlSidebar = new (L.Control.extend({
+				window.controlSidebar = new (L.Control.extend({
 					options: { position: 'topright' },
 					onAdd: function (map) {
 						controlDiv = L.DomUtil.create('div', 'sidebar-control');
+						controlDiv.id = 'sidebar';
 						return controlDiv;
 					}
 				}));
@@ -137,7 +138,7 @@
 			};
 
 			// Add side-pane control
-			map.addControl(sidebarControl());
+			// map.addControl(sidebarControl());
 
 			// Create custom slider
 			sliderControl = function(theSliderControlFunction) {
@@ -198,6 +199,7 @@
 			};
 
 			function openTreePopup(e) {
+				map.addControl(sidebarControl());
 				e.layer.openPopup();
 
 				controlDiv.innerHTML = '<b>' + e.layer.feature.properties.species_nm + '</b>' + '</br>' + '</br>' +
@@ -211,6 +213,7 @@
 			};
 
 			function closeTreePopup(e) {
+				map.removeControl(controlSidebar);
 				e.layer.closePopup();
 				controlDiv.innerHTML = '';
 			};
