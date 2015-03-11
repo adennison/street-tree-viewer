@@ -19,12 +19,13 @@
 			$(function() {
 				$( "#slider" ).slider({
 					orientation: "vertical",
-					value: walkBuffer,
+					value: window.bufferSize,
 					min: 50,
 					max: 200,
 					step: 50,
 					slide: function( event, ui ) {
-						resizeBuffer(buffer,person.getLatLng().lat,person.getLatLng().lng,ui.value)
+						window.bufferSize = ui.value
+						resizeBuffer(buffer, person.getLatLng().lat, person.getLatLng().lng, window.bufferSize)
 						updateTreeMarkers();
 					},
 					start: function () {
@@ -38,7 +39,7 @@
 
 			// ***** Map Object *****
 			var mapCenter = [-31.9374, 115.84308];
-			var walkBuffer = 100;
+			window.bufferSize = 100;
 
 			// Create map object
 			var map = L.map('map', {
@@ -89,7 +90,7 @@
 			person.setZIndexOffset(1000);
 
 			// Create a point buffer polygon
-			var personBuffer = LGeo.circle(mapCenter, walkBuffer, {
+			var personBuffer = LGeo.circle(mapCenter, window.bufferSize, {
 				stroke: false,
 				fillColor: "#514e4e"
 			});
@@ -110,7 +111,7 @@
 			// ***** Events *****
 			// On drag get the new marker position and update the viewable trees
 			person.on('drag', function (e) {
-				resizeBuffer(buffer, person.getLatLng().lat, person.getLatLng().lng, walkBuffer);
+				resizeBuffer(buffer, person.getLatLng().lat, person.getLatLng().lng, window.bufferSize);
 				updateTreeMarkers();
 			});
 
