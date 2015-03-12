@@ -59,6 +59,12 @@
 				size: "m"
 			});
 
+			var treeIconLarge = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#39E347",
+				size: "l"
+			});
+
 			// Create nearest tree icon
 			var nearestIcon = L.MakiMarkers.icon({
 				icon: "park2",
@@ -66,11 +72,23 @@
 				size: "m"
 			});
 
+			var nearestIconLarge = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#13851C",
+				size: "l"
+			});
+
 			// Create background tree icon
 			var backgroundIcon = L.MakiMarkers.icon({
 				icon: "park2",
 				color: "#CCCCCC",
 				size: "s"
+			});
+
+			var backgroundIconLarge = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#CCCCCC",
+				size: "m"
 			});
 
 			// Create person icon
@@ -154,6 +172,26 @@
 			map.addControl(sliderControl());
 
 			// ***** Functions *****
+			function getDistance(layer) {
+				trees_fc = trees.toGeoJSON();
+					layer_fc = turf.featurecollection([trees.getLayer(layer).toGeoJSON()]);
+					buffer_fc = turf.featurecollection([personBuffer.toGeoJSON()]);
+					within = turf.within(layer_fc, buffer_fc);
+					nearest = turf.nearest(person.toGeoJSON(),trees_fc);
+					treeCoords = trees.getLayer(layer).toGeoJSON().geometry.coordinates;
+					nearestCoords = nearest.geometry.coordinates;
+
+					if (treeCoords[0] == nearestCoords[0] & treeCoords[1] == nearestCoords[1]) {
+						return 'nearest';
+					}
+					else if (within.features.length == 1) {
+						return 'within';
+					}
+					else {
+						return 'outside';
+					};
+			};
+
 			function resizeBuffer(buffer,lat,lng,bufferSize) {
 				buffer.clearLayers();
 				personBuffer = LGeo.circle([lat,lng], bufferSize, {
@@ -167,18 +205,12 @@
 				person.setZIndexOffset(1000);
 
 				for (layer in trees._layers) {
-					trees_fc = trees.toGeoJSON();
-					layer_fc = turf.featurecollection([trees.getLayer(layer).toGeoJSON()]);
-					buffer_fc = turf.featurecollection([personBuffer.toGeoJSON()]);
-					within = turf.within(layer_fc, buffer_fc);
-					nearest = turf.nearest(person.toGeoJSON(),trees_fc);
-					treeCoords = trees.getLayer(layer).toGeoJSON().geometry.coordinates;
-					nearestCoords = nearest.geometry.coordinates;
+					layerDistance = getDistance(layer);
 
-					if (treeCoords[0] == nearestCoords[0] & treeCoords[1] == nearestCoords[1]) {
+					if (layerDistance == 'nearest') {
 						trees.getLayer(layer).setIcon(nearestIcon)
 					}
-					else if (within.features.length == 1) {
+					else if (layerDistance == 'within') {
 						trees.getLayer(layer).setIcon(treeIcon)
 					}
 					else {
@@ -197,7 +229,7 @@
 
 			function openTreePopup(e) {
 				map.addControl(sidebarControl());
-				e.layer.openPopup();
+				// e.layer.openPopup();
 
 				controlDiv.innerHTML = '<b>' + e.layer.feature.properties.species_nm + '</b>' + '</br>' + '</br>' +
 					'<b>' + 'Date: ' + '</b>'+ e.layer.feature.properties.date + '</br>' +
@@ -207,12 +239,36 @@
 					'<b>' + 'Crown Diameter: ' + '</b>' + e.layer.feature.properties.crown_diam + 'm' + '</br>' +
 					'<b>' + 'Leaf Cover: ' + '</b>' + e.layer.feature.properties.leaf_cover + '</br>' +
 					'<b>' + 'Tree Size: ' + '</b>' + e.layer.feature.properties.tree_size + '</br>';
+
+				layerDistance = getDistance(e.layer._leaflet_id);
+
+				if (layerDistance == 'nearest') {
+					e.layer.setIcon(nearestIconLarge);
+				}
+				else if (layerDistance == 'within') {
+					e.layer.setIcon(treeIconLarge);
+				}
+				else {
+					e.layer.setIcon(backgroundIconLarge);
+				};
 			};
 
 			function closeTreePopup(e) {
 				map.removeControl(controlSidebar);
-				e.layer.closePopup();
+				// e.layer.closePopup();
 				controlDiv.innerHTML = '';
+
+				layerDistance = getDistance(e.layer._leaflet_id);
+
+				if (layerDistance == 'nearest') {
+					e.layer.setIcon(nearestIcon);
+				}
+				else if (layerDistance == 'within') {
+					e.layer.setIcon(treeIcon);
+				}
+				else {
+					e.layer.setIcon(backgroundIcon);
+				};
 			};
 		</script>
 	</body>
