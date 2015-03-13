@@ -124,7 +124,7 @@
 			var trees = L.geoJson(st_trees, {
 				onEachFeature: onEachFeature,
 				pointToLayer: function (feature, latlng) {
-					return L.marker(latlng, {icon: treeIcon});
+					return L.marker(latlng, {icon: backgroundIcon});
 				}
 			}).addTo(map);
 
@@ -230,9 +230,16 @@
 
 			function openTreePopup(e) {
 				map.addControl(sidebarControl());
-				// e.layer.openPopup();
 
-				controlDiv.innerHTML = '<b>' + e.layer.feature.properties.species_nm + '</b>' + '</br>' + '</br>' +
+				if (e.layer.feature.properties.tree_photo === null) {
+					treePhoto = 'data/images/Tree.jpg';
+				}
+				else {
+					treePhoto = e.layer.feature.properties.tree_photo;
+				};
+
+				controlDiv.innerHTML = '<center><img src="' + treePhoto + '"style="width:200px"></center>' + '</br>' +
+					'<b>' + e.layer.feature.properties.species_nm + '</b>' + '</br>' + '</br>' +
 					'<b>' + 'Date: ' + '</b>'+ e.layer.feature.properties.date + '</br>' +
 					'<b>' + 'Site Type: ' + '</b>' + e.layer.feature.properties.site_type + '</br>' +
 					'<b>' + 'Health: ' + '</b>' + e.layer.feature.properties.health + '</br>' +
@@ -256,7 +263,7 @@
 
 			function closeTreePopup(e) {
 				map.removeControl(controlSidebar);
-				// e.layer.closePopup();
+
 				controlDiv.innerHTML = '';
 
 				layerDistance = getDistance(e.layer._leaflet_id);
