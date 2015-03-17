@@ -7,8 +7,10 @@
 		<script src="static/geodesy/leaflet-geodesy.js"></script>
 		<script src="static/jquery/jquery-1.10.2.min.js"></script>
 		<script src="static/jquery/jquery-ui.min.js"></script>
+		<script src="static/flot/jquery.flot.min.js"></script>
+		<script src="static/flot/jquery.flot.categories.min.js"></script>
 		<script src="static/slider-pips/jquery-ui-slider-pips.js"></script>
-		<script src="static/d3/d3.min.js"></script>
+		<script src="static/underscorejs/underscore-min.js"></script>
 		<script src="static/data/trees.json"></script>
 		<link rel="stylesheet" href="static/leaflet/leaflet.css" />
 		<link rel="stylesheet" href="static/trees.css" />
@@ -16,7 +18,8 @@
 		<link rel="stylesheet" href="static/slider-pips/jquery-ui-slider-pips.css">
 	</head>
 	<body>
-		<div id="map" style="width: 100%; height: 100%"></div>
+		<div id="map" style="width: 100%; height: 80%"></div>
+		<div id="chart" style="width: 100%; height: 20%"></div>
 		<script>
 			$(function() {
 				$( "#slider" ).slider({
@@ -279,6 +282,72 @@
 					e.layer.setIcon(backgroundIcon);
 				};
 			};
+
+			// var chartArray = [];
+			// for (var i = 0; i < st_trees.features.length; i++) {
+			//     chartArray.push(st_trees.features[i].properties.species_nm);  
+			// };
+
+			// var chartData = _.countBy(chartArray);
+
+			var chartData = [
+				["Allocasuarina littoralis",3],
+				["Araucaria heterophylla",1],
+				["Arecaceae",4],
+				["Calamus",1],
+				["Callistemon",2],
+				["Citrus limon",2],
+				["Eucalyptus",17],
+				["Eucalyptus caesia",1],
+				["Eucalyptus patens",2],
+				["Ficus",5],
+				["Ficus rubiginosa",1],
+				["Jacaranda mimosifolia",5],
+				["Lophostemon confertus",3],
+				["Melaleuca",1],
+				["Olea europaea",1],
+				["Rosa",1],
+				["Schefflera actinophylla",1],
+				["Tipuana tipu",2],
+				["Xanthorrhoea",2],
+				["null",2],
+				["sp 11",1],
+				["sp 14",1],
+				["sp 15",1],
+				["sp 4",2],
+			];
+
+			$.plot("#chart", [ chartData ], {
+				series: {
+					bars: {
+						show: true,
+						barWidth: 0.6,
+						lineWidth: 0,
+						align: "center",
+						fillColor: "#13851C",
+						highlightColor: "#39E347"
+					}
+				},
+				xaxis: {
+					mode: "categories",
+					tickLength: 0,
+					tickColor: "#FFFFFF",
+				},
+				yaxis: {
+					axisLabelFontFamily: 'Verdana, Arial',
+				},
+				grid: {
+					hoverable: true,
+					clickable: true,
+				}
+			});
+
+			$("#placeholder").bind("plothover", function (event, pos, item) {
+				if (item) {
+					$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
+					plot.highlight(item.series, item.datapoint);
+				}
+			});
 		</script>
 	</body>
 </html>
