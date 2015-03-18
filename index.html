@@ -283,6 +283,20 @@
 				};
 			};
 
+			function filterSpecies(speciesName) {
+				var filtered = turf.filter(st_trees, "species_nm", speciesName);
+				trees.clearLayers();
+
+				if (speciesName == '') {
+					trees.addData(st_trees);
+				}
+				else {
+					trees.addData(filtered);
+				};
+
+				updateTreeMarkers();
+			};
+
 			// var chartArray = [];
 			// for (var i = 0; i < st_trees.features.length; i++) {
 			//     chartArray.push(st_trees.features[i].properties.species_nm);  
@@ -324,29 +338,52 @@
 						barWidth: 0.6,
 						lineWidth: 0,
 						align: "center",
-						fillColor: "#13851C",
+						fillColor: "#646464",
 						highlightColor: "#39E347"
 					}
 				},
 				xaxis: {
 					mode: "categories",
 					tickLength: 0,
-					tickColor: "#FFFFFF",
+					font:{
+						size: 10,
+						weight: "bold",
+						family: "sans-serif",
+						variant: "small-caps",
+						color: "#FFFFFF"
+					}
 				},
 				yaxis: {
-					axisLabelFontFamily: 'Verdana, Arial',
+					color: "#646464",
+					font:{
+						size: 11,
+						weight: "bold",
+						family: "sans-serif",
+						variant: "small-caps",
+						color: "#FFFFFF"
+					}
 				},
 				grid: {
-					hoverable: true,
+					// hoverable: true,
 					clickable: true,
+					autoHighlight: true
 				}
 			});
 
-			$("#placeholder").bind("plothover", function (event, pos, item) {
+			// $("#chart").bind("plothover", function (event, pos, item) {
+			// 	if (item) {
+			// 		$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
+			// 		plot.highlight(item.series, item.datapoint);
+			// 	}
+			// });
+
+			$("#chart").on('plotclick', function ( event, pos, item ) {
 				if (item) {
-					$("#clickdata").text(" - click point " + item.dataIndex + " in " + item.series.label);
-					plot.highlight(item.series, item.datapoint);
-				}
+			    	filterSpecies(item.series.data[item.dataIndex][0]);
+			    }
+			    else {
+			    	filterSpecies('');
+			    };
 			});
 		</script>
 	</body>
