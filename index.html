@@ -1,0 +1,372 @@
+<html>
+	<head>
+		<title>Leederville Street Trees</title>
+		<script src="static/leaflet/leaflet.js"></script>
+		<script src="static/turf/turf.js"></script>
+		<script src="static/makimarkers/Leaflet.MakiMarkers.js"></script>
+		<script src="static/geodesy/leaflet-geodesy.js"></script>
+		<script src="static/jquery/jquery-1.10.2.min.js"></script>
+		<script src="static/jquery/jquery-ui.min.js"></script>
+		<script src="static/flot/jquery.flot.min.js"></script>
+		<script src="static/flot/jquery.flot.categories.min.js"></script>
+		<script src="static/slider-pips/jquery-ui-slider-pips.js"></script>
+		<script src="static/data/trees.json"></script>
+		<link rel="stylesheet" href="static/leaflet/leaflet.css" />
+		<link rel="stylesheet" href="static/trees.css" />
+		<link rel="stylesheet" href="static/jquery/jquery-ui.css">
+		<link rel="stylesheet" href="static/slider-pips/jquery-ui-slider-pips.css">
+	</head>
+	<body>
+		<div id="map" style="width: 100%; height: 80%"></div>
+		<div id="chart" style="width: 100%; height: 20%"></div>
+		<script>
+			$(function() {
+				$( "#slider" ).slider({
+					orientation: "vertical",
+					value: window.bufferSize,
+					min: 50,
+					max: 200,
+					step: 50,
+					slide: function( event, ui ) {
+						window.bufferSize = ui.value
+						resizeBuffer(buffer, person.getLatLng().lat, person.getLatLng().lng, window.bufferSize)
+						updateTreeMarkers();
+					},
+					start: function () {
+						map.dragging.disable();
+					},
+					stop: function () {
+						map.dragging.enable();
+					},
+				}).slider("pips", {
+					suffix: "m"
+				});
+			});
+
+			// ***** Map Object *****
+			var mapCenter = [-31.9374, 115.84308];
+			window.bufferSize = 100;
+
+			// Create map object
+			var map = L.map('map', {
+				center: mapCenter,
+				zoom: 18,
+				minZoom: 17,
+				attributionControl: false
+			});
+
+			// ***** Icons *****
+			// Create tree icon
+			var treeIcon = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#39E347",
+				size: "m"
+			});
+
+			var treeIconLarge = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#39E347",
+				size: "l"
+			});
+
+			// Create nearest tree icon
+			var nearestIcon = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#13851C",
+				size: "m"
+			});
+
+			var nearestIconLarge = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#13851C",
+				size: "l"
+			});
+
+			// Create background tree icon
+			var backgroundIcon = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#CCCCCC",
+				size: "s"
+			});
+
+			var backgroundIconLarge = L.MakiMarkers.icon({
+				icon: "park2",
+				color: "#CCCCCC",
+				size: "m"
+			});
+
+			// Create person icon
+			var personIcon = L.MakiMarkers.icon({
+				icon: "school",
+				color: "#514e4e",
+				size: "m"
+			});
+
+			// ***** Layers *****
+			// Add base layer
+			var osm = L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {id: 'examples.map-i875mjb7'}).addTo(map);
+
+			// Add person layer
+			var person = L.marker(mapCenter, {
+				icon: personIcon,
+				draggable: true
+			}).addTo(map);
+
+			person.setZIndexOffset(1000);
+
+			// Create a point buffer polygon
+			var personBuffer = LGeo.circle(mapCenter, window.bufferSize, {
+				stroke: false,
+				fillColor: "#514e4e"
+			});
+
+			// Add personBuffer to a feature group
+			var buffer = L.featureGroup().addLayer(personBuffer).addTo(map);
+
+			// Add tree layer
+			var trees = L.geoJson(st_trees, {
+				onEachFeature: onEachFeature,
+				pointToLayer: function (feature, latlng) {
+					return L.marker(latlng, {icon: backgroundIcon});
+				}
+			}).addTo(map);
+
+			updateTreeMarkers();
+
+			// ***** Events *****
+			// On drag get the new marker position and update the viewable trees
+			person.on('drag', function (e) {
+				resizeBuffer(buffer, person.getLatLng().lat, person.getLatLng().lng, window.bufferSize);
+				updateTreeMarkers();
+			});
+
+			trees.on({
+				mouseover: openTreePopup,
+				mouseout: closeTreePopup
+			});
+
+			// ***** Controls *****
+			// Create custom side-pane
+			sidebarControl = function(theSidebarControlFunction) {
+				window.controlSidebar = new (L.Control.extend({
+					options: { position: 'topright' },
+					onAdd: function (map) {
+						controlDiv = L.DomUtil.create('div', 'sidebar-control');
+						controlDiv.id = 'sidebar';
+						return controlDiv;
+					}
+				}));
+				return controlSidebar;
+			};
+
+			// Create custom slider
+			sliderControl = function(theSliderControlFunction) {
+				var slideControl = new (L.Control.extend({
+					options: { position: 'bottomleft' },
+					onAdd: function (map) {
+						sliderDiv = L.DomUtil.create('div', 'slider');
+						sliderDiv.id = 'slider';
+						return sliderDiv;
+					}
+				}));
+				return slideControl;
+			};
+
+			// Add slider control
+			map.addControl(sliderControl());
+
+			// ***** Functions *****
+			function getDistance(layer) {
+				trees_fc = trees.toGeoJSON();
+					layer_fc = turf.featurecollection([trees.getLayer(layer).toGeoJSON()]);
+					buffer_fc = turf.featurecollection([personBuffer.toGeoJSON()]);
+					within = turf.within(layer_fc, buffer_fc);
+					nearest = turf.nearest(person.toGeoJSON(),trees_fc);
+					treeCoords = trees.getLayer(layer).toGeoJSON().geometry.coordinates;
+					nearestCoords = nearest.geometry.coordinates;
+
+					if (treeCoords[0] == nearestCoords[0] & treeCoords[1] == nearestCoords[1]) {
+						return 'nearest';
+					}
+					else if (within.features.length == 1) {
+						return 'within';
+					}
+					else {
+						return 'outside';
+					};
+			};
+
+			function resizeBuffer(buffer,lat,lng,bufferSize) {
+				buffer.clearLayers();
+				personBuffer = LGeo.circle([lat,lng], bufferSize, {
+					stroke: false,
+					fillColor: "#514e4e"
+				})
+				buffer.addLayer(personBuffer);
+			};
+
+			function updateTreeMarkers() {
+				person.setZIndexOffset(1000);
+
+				for (layer in trees._layers) {
+					layerDistance = getDistance(layer);
+
+					if (layerDistance == 'nearest') {
+						trees.getLayer(layer).setIcon(nearestIcon)
+					}
+					else if (layerDistance == 'within') {
+						trees.getLayer(layer).setIcon(treeIcon)
+					}
+					else {
+						trees.getLayer(layer).setIcon(backgroundIcon)
+					};
+				};
+			}
+
+			// Add popups to tree layer
+			function onEachFeature(feature, layer) {
+				if (feature.properties.species_nm) {
+					var popup = L.popup({closeButton: false}).setContent('<i>' + feature.properties.species_nm + '</i>');
+					layer.bindPopup(popup);
+				};
+			};
+
+			function openTreePopup(e) {
+				map.addControl(sidebarControl());
+
+				if (e.layer.feature.properties.tree_photo === null) {
+					treePhoto = 'static/data/images/Tree.jpg';
+				}
+				else {
+					treePhoto = e.layer.feature.properties.tree_photo;
+				};
+
+				controlDiv.innerHTML = '<center><img src="' + treePhoto + '"style="width:200px"></center>' + '</br>' +
+					'<b>' + e.layer.feature.properties.species_nm + '</b>' + '</br>' + '</br>' +
+					'<b>' + 'Date: ' + '</b>'+ e.layer.feature.properties.date + '</br>' +
+					'<b>' + 'Site Type: ' + '</b>' + e.layer.feature.properties.site_type + '</br>' +
+					'<b>' + 'Health: ' + '</b>' + e.layer.feature.properties.health + '</br>' +
+					'<b>' + 'Height: ' + '</b>' + e.layer.feature.properties.height + '</br>' +
+					'<b>' + 'Crown Diameter: ' + '</b>' + e.layer.feature.properties.crown_diam + 'm' + '</br>' +
+					'<b>' + 'Leaf Cover: ' + '</b>' + e.layer.feature.properties.leaf_cover + '</br>' +
+					'<b>' + 'Tree Size: ' + '</b>' + e.layer.feature.properties.tree_size + '</br>';
+
+				layerDistance = getDistance(e.layer._leaflet_id);
+
+				if (layerDistance == 'nearest') {
+					e.layer.setIcon(nearestIconLarge);
+				}
+				else if (layerDistance == 'within') {
+					e.layer.setIcon(treeIconLarge);
+				}
+				else {
+					e.layer.setIcon(backgroundIconLarge);
+				};
+			};
+
+			function closeTreePopup(e) {
+				map.removeControl(controlSidebar);
+
+				controlDiv.innerHTML = '';
+
+				layerDistance = getDistance(e.layer._leaflet_id);
+
+				if (layerDistance == 'nearest') {
+					e.layer.setIcon(nearestIcon);
+				}
+				else if (layerDistance == 'within') {
+					e.layer.setIcon(treeIcon);
+				}
+				else {
+					e.layer.setIcon(backgroundIcon);
+				};
+			};
+
+			function filterSpecies(speciesName) {
+				var filtered = turf.filter(st_trees, "species_nm", speciesName);
+				trees.clearLayers();
+
+				if (speciesName == '') {
+					trees.addData(st_trees);
+				}
+				else {
+					trees.addData(filtered);
+				};
+
+				updateTreeMarkers();
+			};
+
+			function getCount(species) {
+				var count = 0;
+				for (var i = 0; i < st_trees.features.length; i++) {
+					if (st_trees.features[i].properties.species_nm == species) {
+			 			count++;
+					}
+				}
+				return count;
+			};
+
+			var chartData = [];
+			for (var i = 0; i < st_trees.features.length; i++) {
+			    chartData.push([st_trees.features[i].properties.species_nm,getCount(st_trees.features[i].properties.species_nm)]);  
+			};
+
+			window.plot = $.plot("#chart", [ chartData ], {
+				series: {
+					bars: {
+						show: true,
+						barWidth: 0.6,
+						lineWidth: 0,
+						align: "center",
+						fillColor: "#646464",
+					},
+					highlightColor: "#9AF1A0"
+				},
+				xaxis: {
+					mode: "categories",
+					tickLength: 0,
+					font:{
+						size: 10,
+						weight: "bold",
+						family: "sans-serif",
+						variant: "small-caps",
+						color: "#FFFFFF"
+					}
+				},
+				yaxis: {
+					color: "#646464",
+					font:{
+						size: 11,
+						weight: "bold",
+						family: "sans-serif",
+						variant: "small-caps",
+						color: "#FFFFFF"
+					}
+				},
+				grid: {
+					clickable: true,
+					// autoHighlight: true
+				}
+			});
+
+			window.clickedBar = [];
+
+			$("#chart").on('plotclick', function (e, pos, item) {
+				if (item) {
+					plot.unhighlight();
+					
+					if (String(item.datapoint) == String(window.clickedBar[0])) {
+						window.clickedBar = [];
+						filterSpecies('');
+					}
+					else {
+						window.clickedBar = [];
+						filterSpecies(item.series.data[item.dataIndex][0]);
+						plot.highlight(item.series, item.datapoint);
+						window.clickedBar.push(item.datapoint);
+					};
+				};
+			});
+		</script>
+	</body>
+</html>

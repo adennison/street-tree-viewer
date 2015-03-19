@@ -1,0 +1,130 @@
+var st_trees = {
+"type": "FeatureCollection",
+                                                                                
+"features": [
+{ "type": "Feature", "properties": { "species_nm": "Arecaceae", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 6.3, "crown_diam": 4.5, "leaf_cover": 0, "tree_photo": "static/data/images/eb4d16ee-c8e2-4c75-ad24-486dec14fb58.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.841494, -31.938911 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Ficus", "date": "03 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 4.0, "crown_diam": 5.0, "leaf_cover": 80, "tree_photo": "static/data/images/fde4ba47-f205-4071-ae5d-60945b7765c7.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845317, -31.939375 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Large", "health": "Healthy", "height": 16.0, "crown_diam": 7.0, "leaf_cover": 70, "tree_photo": "static/data/images/3ccbc6e5-b4f4-40e8-89af-9bbd6e27d950.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844213, -31.937314 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Jacaranda mimosifolia", "date": "05 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 5.5, "crown_diam": 5.0, "leaf_cover": 40, "tree_photo": "static/data/images/678d4b37-d0ba-48bc-9b65-661d1de120f2.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.839438, -31.936754 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Allocasuarina littoralis", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 11.0, "crown_diam": 5.0, "leaf_cover": 70, "tree_photo": "static/data/images/aada75e6-a7ee-4620-bfd3-f083e34868c0.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844148, -31.939239 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Tipuana tipu", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 4.2, "crown_diam": 6.8, "leaf_cover": 95, "tree_photo": "static/data/images/bb7f04f5-2994-4217-ab98-f060e57f67ff.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.84344, -31.940317 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Allocasuarina littoralis", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 7.5, "crown_diam": 3.5, "leaf_cover": 80, "tree_photo": "static/data/images/071af58b-2bd6-422f-a93a-64db2295e02c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845029, -31.940121 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": null, "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 11.0, "crown_diam": 8.0, "leaf_cover": 87, "tree_photo": "static/data/images/a740136e-c0df-4e5a-a32d-5e6f676d35b5.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.841454, -31.938639 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 15.0, "crown_diam": 8.0, "leaf_cover": 50, "tree_photo": "static/data/images/e2fb96df-b32e-43da-8f31-09b60a4c95f5.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844189, -31.939445 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 4.5, "crown_diam": 4.0, "leaf_cover": 95, "tree_photo": "static/data/images/81749823-aca7-43df-9fcc-0610825d9fd7.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.8428, -31.940244 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Callistemon", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Small", "health": "Healthy", "height": 3.0, "crown_diam": 2.0, "leaf_cover": 50, "tree_photo": "static/data/images/936369d3-ceba-4747-850f-ddfe672c01a7.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844663, -31.939363 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "sp 4", "date": "03 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 15.0, "crown_diam": 13.0, "leaf_cover": 90, "tree_photo": "static/data/images/ace406a2-f531-4eca-97d6-065e3a1fa59b.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845318, -31.939373 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Ficus", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 5.0, "crown_diam": 3.0, "leaf_cover": 80, "tree_photo": "static/data/images/3501dd3f-7016-43e9-95c9-10643d6fe52c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842216, -31.939571 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Schefflera actinophylla", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Medium", "health": "Healthy", "height": 2.1, "crown_diam": 3.0, "leaf_cover": 96, "tree_photo": "static/data/images/d3286225-8f60-4711-aa1c-ae46e13eba00.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844585, -31.937336 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 7.6, "crown_diam": 3.7, "leaf_cover": 45, "tree_photo": "static/data/images/e9ab822e-f0fb-4ed7-a004-843b18bcd58e.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842808, -31.940024 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus patens", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 12.0, "crown_diam": 9.0, "leaf_cover": 80, "tree_photo": "static/data/images/edef72ac-3790-4125-999a-706e75fcb325.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.846318, -31.936883 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Ficus", "date": "05 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 11.0, "crown_diam": 12.0, "leaf_cover": 98, "tree_photo": null }, "geometry": { "type": "Point", "coordinates": [ 115.843768, -31.936337 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "05 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Medium", "health": "Healthy", "height": 11.5, "crown_diam": 3.5, "leaf_cover": 40, "tree_photo": "static/data/images/83862f4e-88a2-4437-acb2-63ecf5abb7c2.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842809, -31.936366 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "sp 11", "date": "04 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Small", "health": "Healthy", "height": 5.5, "crown_diam": 2.5, "leaf_cover": 70, "tree_photo": "static/data/images/e55a234c-b235-4688-bb4d-fe0e7e14bf05.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.84505, -31.937333 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "05 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Large", "health": "Healthy", "height": 9.5, "crown_diam": 10.5, "leaf_cover": 80, "tree_photo": "static/data/images/6864e382-5f59-48b2-8614-0044c49391e5.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.84257, -31.936907 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Ficus", "date": "04 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Medium", "health": "Healthy", "height": 5.6, "crown_diam": 2.7, "leaf_cover": 93, "tree_photo": "static/data/images/61cba1ad-51bf-489e-947e-d8e26e1bce37.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842617, -31.93994 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 6.6, "crown_diam": 5.0, "leaf_cover": 65, "tree_photo": "static/data/images/2c2fc5d1-2334-4790-b01e-f6cab8c76d87.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844959, -31.939974 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "05 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Large", "health": "Healthy", "height": 13.0, "crown_diam": 11.0, "leaf_cover": 40, "tree_photo": "static/data/images/16233e9a-9d14-4961-9432-174b7d343981.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.841375, -31.935787 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Arecaceae", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 11.0, "crown_diam": 3.5, "leaf_cover": 0, "tree_photo": "static/data/images/d537096c-4651-46d7-8e0d-4ad40248ca69.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842537, -31.939412 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "sp 15", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 5.2, "crown_diam": 7.5, "leaf_cover": 95, "tree_photo": "static/data/images/07ee03fc-d9b0-4c8e-a058-3cffb451162c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842561, -31.939666 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 15.0, "crown_diam": 11.0, "leaf_cover": 60, "tree_photo": "static/data/images/8e99d35f-d3c1-44cb-be99-b91ca8a51d09.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844239, -31.939386 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Jacaranda mimosifolia", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Small", "health": "Healthy", "height": 6.0, "crown_diam": 3.0, "leaf_cover": 50, "tree_photo": "static/data/images/020ad464-fb57-4c40-a146-90ed9e071c2a.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845382, -31.937382 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 3.0, "crown_diam": 5.0, "leaf_cover": 70, "tree_photo": "static/data/images/24102079-d14a-4461-9ee0-f68d0ad3be77.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844422, -31.939278 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "05 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 5.0, "crown_diam": 2.3, "leaf_cover": 85, "tree_photo": "static/data/images/d2cf0598-4490-4fc9-b9e1-32ea2d449461.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844527, -31.936062 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Olea europaea", "date": "05 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 7.0, "crown_diam": 12.0, "leaf_cover": 0, "tree_photo": "static/data/images/1d34d449-b887-4c56-ba29-220a8b28c2ce.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.840569, -31.938308 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "sp 14", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 5.5, "crown_diam": 4.5, "leaf_cover": 50, "tree_photo": "static/data/images/fa58121a-38d0-4fc8-8dca-f2ce969f7f66.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845801, -31.938175 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Arecaceae", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 12.0, "crown_diam": 2.0, "leaf_cover": 0, "tree_photo": "static/data/images/b7e4a3f9-2b9b-498d-b8b6-5158e7da46de.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842633, -31.939692 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": null, "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 8.0, "crown_diam": 9.0, "leaf_cover": 80, "tree_photo": "static/data/images/3b1f56bf-cbbf-4bae-adbb-cd6df4bad68c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844892, -31.939893 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus patens", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 11.5, "crown_diam": 6.0, "leaf_cover": 70, "tree_photo": "static/data/images/95111699-35ee-411e-8516-bb03d05d49a6.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.846136, -31.937436 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 11.5, "crown_diam": 6.5, "leaf_cover": 40, "tree_photo": "static/data/images/ebf2b82d-da88-4ecd-ac7f-cd5422330045.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.84149, -31.939175 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Melaleuca", "date": "03 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 2.5, "crown_diam": 6.0, "leaf_cover": 65, "tree_photo": "static/data/images/62b72124-6d15-4525-9370-286dcb98de30.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845137, -31.939206 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Ficus", "date": "03 Jul 2012", "site_type": "Park", "tree_size": "Small", "health": "Healthy", "height": 3.0, "crown_diam": 2.8, "leaf_cover": 85, "tree_photo": "static/data/images/3e69d260-6cc6-4ff1-a9d1-f45eebbf5bff.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845049, -31.939648 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Lophostemon confertus", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Medium", "health": "Healthy", "height": 3.8, "crown_diam": 6.0, "leaf_cover": 98, "tree_photo": "static/data/images/ca854cdf-7689-41d9-8f91-00086775e4e4.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845782, -31.93738 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Tipuana tipu", "date": "04 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Medium", "health": "Old", "height": 5.0, "crown_diam": 5.5, "leaf_cover": 90, "tree_photo": "static/data/images/1bdda3a1-8038-4b09-9c0d-f4f95896dd72.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842556, -31.939137 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Citrus limon", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Small", "health": "Healthy", "height": 2.5, "crown_diam": 3.0, "leaf_cover": 96, "tree_photo": "static/data/images/468757e0-f030-4e54-88ed-b1c5725e7cde.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842815, -31.939446 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "05 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Large", "health": "Healthy", "height": 10.5, "crown_diam": 8.0, "leaf_cover": 55, "tree_photo": "static/data/images/bd8cfb3c-9222-4b6f-b7ae-1d98f1149009.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.839764, -31.936893 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Ficus rubiginosa", "date": "05 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 5.0, "crown_diam": 12.5, "leaf_cover": 80, "tree_photo": "static/data/images/1de3320b-bf0e-4768-8b14-23ea602300ea.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844146, -31.936325 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Callistemon", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Small", "health": "Healthy", "height": 2.1, "crown_diam": 2.0, "leaf_cover": 30, "tree_photo": "static/data/images/24acce51-ea5d-4e3f-8ab5-3bbe5f488f31.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844816, -31.940033 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Small", "health": "Healthy", "height": 3.4, "crown_diam": 3.0, "leaf_cover": 30, "tree_photo": "static/data/images/39a631f2-6b8b-4341-b5e7-166f7e36476f.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844366, -31.939472 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Rosa", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Small", "health": "Healthy", "height": 1.8, "crown_diam": 1.2, "leaf_cover": 20, "tree_photo": "static/data/images/0bc88785-39a7-494a-a976-64f7fe3453ef.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.84551, -31.937341 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Arecaceae", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Small", "health": "Healthy", "height": 1.8, "crown_diam": 1.5, "leaf_cover": 40, "tree_photo": "static/data/images/24cdd7fc-592a-4961-93d6-1dbe0030c604.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842579, -31.939818 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Xanthorrhoea", "date": "05 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Small", "health": "Healthy", "height": 1.7, "crown_diam": 0.0, "leaf_cover": 0, "tree_photo": "static/data/images/14fd8567-7914-438a-9d00-041286097248.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.843553, -31.936263 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Jacaranda mimosifolia", "date": "05 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Medium", "health": "Healthy", "height": 5.0, "crown_diam": 5.0, "leaf_cover": 65, "tree_photo": "static/data/images/f8c78c40-319b-4ddd-a2a1-d88ff8a7fa7d.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.840603, -31.937483 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Xanthorrhoea", "date": "03 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Small", "health": "Healthy", "height": 2.3, "crown_diam": 1.5, "leaf_cover": 20, "tree_photo": "static/data/images/e8e57ad9-7bbb-4183-8c4c-600bda21df24.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844093, -31.939307 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Lophostemon confertus", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Medium", "health": "Healthy", "height": 5.5, "crown_diam": 5.0, "leaf_cover": 90, "tree_photo": "static/data/images/5ee15ee5-a7b1-49cb-b191-afe42242bbf1.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.843269, -31.937504 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Calamus", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Medium", "health": "Healthy", "height": 5.5, "crown_diam": 6.0, "leaf_cover": 55, "tree_photo": "static/data/images/84282f80-921c-4e97-b28d-6a770f929950.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845818, -31.937761 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Allocasuarina littoralis", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 7.5, "crown_diam": 5.0, "leaf_cover": 85, "tree_photo": "static/data/images/cca26ce8-a8d8-4e81-a330-9a7f15f92639.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844862, -31.940042 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus caesia", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Small", "health": "Healthy", "height": 4.2, "crown_diam": 3.0, "leaf_cover": 40, "tree_photo": "static/data/images/e61a5259-a940-4c87-a635-da90d6e951b9.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.841631, -31.938669 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Araucaria heterophylla", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 12.5, "crown_diam": 3.5, "leaf_cover": 87, "tree_photo": "static/data/images/1e42218d-2804-4e05-97ff-243e652bc60e.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842355, -31.939565 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Jacaranda mimosifolia", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Medium", "health": "Healthy", "height": 6.0, "crown_diam": 5.0, "leaf_cover": 70, "tree_photo": "static/data/images/601d9130-17f7-4ec2-9832-782bfc443f97.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842289, -31.939555 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Lophostemon confertus", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Medium", "health": "Healthy", "height": 5.0, "crown_diam": 7.0, "leaf_cover": 90, "tree_photo": "static/data/images/9e7d959e-ca64-4fb6-a448-28369af614be.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.843149, -31.937372 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "03 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 23.0, "crown_diam": 17.0, "leaf_cover": 70, "tree_photo": "static/data/images/44ca2393-1bc2-4263-8203-388bdb650563.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845457, -31.939416 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "sp 4", "date": "03 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 13.0, "crown_diam": 15.0, "leaf_cover": 85, "tree_photo": "static/data/images/573e7fd3-1287-47d7-a8f4-a53cd3651ed9.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845104, -31.939638 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "05 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 6.5, "crown_diam": 3.3, "leaf_cover": 90, "tree_photo": "static/data/images/0ecd6b1a-7b73-4f0a-9fed-2487f766dac9.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.839541, -31.937123 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Jacaranda mimosifolia", "date": "04 Jul 2012", "site_type": "Residential Yard", "tree_size": "Small", "health": "Healthy", "height": 3.0, "crown_diam": 2.5, "leaf_cover": 80, "tree_photo": "static/data/images/f71f9088-8eb8-4730-8b93-13c050c09afd.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.843661, -31.937375 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Citrus limon", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Small", "health": "Healthy", "height": 2.2, "crown_diam": 1.8, "leaf_cover": 75, "tree_photo": "static/data/images/bef29186-b1c2-42bb-be1a-02f17e4d0333.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842488, -31.939403 ] } }
+,
+{ "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "04 Jul 2012", "site_type": "Tree Pit in a Paved Area", "tree_size": "Large", "health": "Healthy", "height": 15.0, "crown_diam": 13.0, "leaf_cover": 75, "tree_photo": "static/data/images/f5344dd9-b424-4826-ba0c-df333ef46497.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842046, -31.938901 ] } }
+
+]
+}
