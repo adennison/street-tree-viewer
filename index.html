@@ -311,7 +311,7 @@
 			    chartData.push([st_trees.features[i].properties.species_nm,getCount(st_trees.features[i].properties.species_nm)]);  
 			};
 
-			$.plot("#chart", [ chartData ], {
+			window.plot = $.plot("#chart", [ chartData ], {
 				series: {
 					bars: {
 						show: true,
@@ -345,17 +345,27 @@
 				},
 				grid: {
 					clickable: true,
-					autoHighlight: true
+					// autoHighlight: true
 				}
 			});
 
+			window.clickedBar = [];
+
 			$("#chart").on('plotclick', function (e, pos, item) {
 				if (item) {
-			    	filterSpecies(item.series.data[item.dataIndex][0]);
-			    }
-			    else {
-			    	filterSpecies('');
-			    };
+					plot.unhighlight();
+					
+					if (String(item.datapoint) == String(window.clickedBar[0])) {
+						window.clickedBar = [];
+						filterSpecies('');
+					}
+					else {
+						window.clickedBar = [];
+						filterSpecies(item.series.data[item.dataIndex][0]);
+						plot.highlight(item.series, item.datapoint);
+						window.clickedBar.push(item.datapoint);
+					};
+				};
 			});
 		</script>
 	</body>
