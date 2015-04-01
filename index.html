@@ -10,6 +10,7 @@
 		<script src="static/flot/jquery.flot.min.js"></script>
 		<script src="static/flot/jquery.flot.categories.min.js"></script>
 		<script src="static/slider-pips/jquery-ui-slider-pips.js"></script>
+		<script src="static/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 		<script src="static/data/trees.json"></script>
 		<link rel="stylesheet" href="static/leaflet/leaflet.css" />
 		<link rel="stylesheet" href="static/trees.css" />
@@ -362,7 +363,12 @@
 				},
 				grid: {
 					clickable: true,
-					// autoHighlight: true
+					hoverable: true
+				},
+				tooltip: true,
+				tooltipOpts: {
+					content: "%x",
+					defaultTheme: false
 				}
 			});
 
