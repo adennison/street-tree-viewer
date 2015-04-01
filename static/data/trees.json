@@ -16,7 +16,7 @@ var st_trees = {
 ,
 { "type": "Feature", "properties": { "species_nm": "Allocasuarina littoralis", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Medium", "health": "Healthy", "height": 7.5, "crown_diam": 3.5, "leaf_cover": 80, "tree_photo": "static/data/images/071af58b-2bd6-422f-a93a-64db2295e02c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.845029, -31.940121 ] } }
 ,
-{ "type": "Feature", "properties": { "species_nm": null, "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 11.0, "crown_diam": 8.0, "leaf_cover": 87, "tree_photo": "static/data/images/a740136e-c0df-4e5a-a32d-5e6f676d35b5.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.841454, -31.938639 ] } }
+{ "type": "Feature", "properties": { "species_nm": "Unknown", "date": "04 Jul 2012", "site_type": "Park", "tree_size": "Large", "health": "Healthy", "height": 11.0, "crown_diam": 8.0, "leaf_cover": 87, "tree_photo": "static/data/images/a740136e-c0df-4e5a-a32d-5e6f676d35b5.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.841454, -31.938639 ] } }
 ,
 { "type": "Feature", "properties": { "species_nm": "Eucalyptus", "date": "03 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 15.0, "crown_diam": 8.0, "leaf_cover": 50, "tree_photo": "static/data/images/e2fb96df-b32e-43da-8f31-09b60a4c95f5.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844189, -31.939445 ] } }
 ,
@@ -66,7 +66,7 @@ var st_trees = {
 ,
 { "type": "Feature", "properties": { "species_nm": "Arecaceae", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 12.0, "crown_diam": 2.0, "leaf_cover": 0, "tree_photo": "static/data/images/b7e4a3f9-2b9b-498d-b8b6-5158e7da46de.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.842633, -31.939692 ] } }
 ,
-{ "type": "Feature", "properties": { "species_nm": null, "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 8.0, "crown_diam": 9.0, "leaf_cover": 80, "tree_photo": "static/data/images/3b1f56bf-cbbf-4bae-adbb-cd6df4bad68c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844892, -31.939893 ] } }
+{ "type": "Feature", "properties": { "species_nm": "Unknown", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 8.0, "crown_diam": 9.0, "leaf_cover": 80, "tree_photo": "static/data/images/3b1f56bf-cbbf-4bae-adbb-cd6df4bad68c.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.844892, -31.939893 ] } }
 ,
 { "type": "Feature", "properties": { "species_nm": "Eucalyptus patens", "date": "04 Jul 2012", "site_type": "Tree Lawn or Planting Strip", "tree_size": "Large", "health": "Healthy", "height": 11.5, "crown_diam": 6.0, "leaf_cover": 70, "tree_photo": "static/data/images/95111699-35ee-411e-8516-bb03d05d49a6.jpg" }, "geometry": { "type": "Point", "coordinates": [ 115.846136, -31.937436 ] } }
 ,
