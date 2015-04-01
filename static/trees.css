@@ -24,12 +24,3 @@
 #chart {
     background-color: #404040;
 }
-
-#flotTip {
-	white-space: nowrap;
-	border: 1px solid #111;
-	padding: 3px 8px;
-	background:#fff;
-	font-size:12px;
-	font-family: helvetica;
-}
