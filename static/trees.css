@@ -1,0 +1,35 @@
+.sidebar-control {
+	display: block;
+	padding: 6px;
+	border-radius: 4px;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	box-shadow: 0 1px 7px rgba(0, 0, 0, 0.65);
+	background-color: #FFFFFF;
+	font-family: helvetica;
+}
+
+#slider .ui-slider-handle {
+	border-radius: 20px;
+	height: 15px;
+	width: 15px;
+	margin-left: 1px;
+	background-color: #747779;
+}
+
+.ui-slider-vertical.ui-slider-pips {
+	background-color: #E2E7F7;
+}
+
+#chart {
+    background-color: #404040;
+}
+
+#flotTip {
+	white-space: nowrap;
+	border: 1px solid #111;
+	padding: 3px 8px;
+	background:#fff;
+	font-size:12px;
+	font-family: helvetica;
+}
