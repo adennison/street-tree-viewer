@@ -1,9 +1,0 @@
-diff a/index.html b/index.html	(rejected hunks)
-@@ -10,6 +10,7 @@
- 		<script src="static/flot/jquery.flot.min.js"></script>
- 		<script src="static/flot/jquery.flot.categories.min.js"></script>
- 		<script src="static/slider-pips/jquery-ui-slider-pips.js"></script>
-+		<script src="static/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
- 		<script src="static/data/trees.json"></script>
- 		<link rel="stylesheet" href="static/leaflet/leaflet.css" />
- 		<link rel="stylesheet" href="static/trees.css" />
